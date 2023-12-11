@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Example</title>
+</head>
+
+<body>
+    <input type="text" id="inputText" placeholder="Введіть текст">
+    <button onclick="sendMessage()">Відправити</button>
+    <p id="responseLabel">Відповідь від сервера: </p>
+
+    <script>
+        const socket = new WebSocket('ws://127.0.0.1:8000/websocket/task');
+
+        socket.addEventListener('message', (event) => {
+            const responseLabel = document.getElementById('responseLabel');
+            responseLabel.textContent = 'Відповідь від сервера: ' + event.data;
+        });
+
+        function sendMessage() {
+            const inputElement = document.getElementById('inputText');
+            const message = inputElement.value;
+            socket.send(message);
+        }
+    </script>
+</body>
+
+</html>
